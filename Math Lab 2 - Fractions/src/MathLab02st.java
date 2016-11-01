@@ -2,70 +2,84 @@
 // The Rational Class Program I
 // This is the student, starting version of the MathLab02 assignment.
 
-
 import javax.swing.JOptionPane;
 
-
-public class MathLab02st
-{
-	public static void main (String args[])
-	{   
-		String strNbr1 = JOptionPane.showInputDialog("Enter Numerator "); 
+public class MathLab02st {
+	public static void main(String args[]) {
+		String strNbr1 = JOptionPane.showInputDialog("Enter Numerator ");
 		String strNbr2 = JOptionPane.showInputDialog("Enter Denominator ");
 
 		int num = Integer.parseInt(strNbr1);
 		int den = Integer.parseInt(strNbr2);
 
-		Rational r = new Rational(num,den);
-		JOptionPane.showMessageDialog(null,r.getNum()+"/"+r.getDen()+" equals "+r.getDecimal());
-          
+		Rational r = new Rational(num, den);
+		JOptionPane.showMessageDialog(null, r.getRational() + " equals " + r.getDecimal());
+
 		System.exit(0);
 	}
 }
 
-				
+class Rational {
+	private int num, den, firstNum, firstDen;
 
-class Rational
-{
-		
-//	Rational
-	
-//	getNum
-	
-//	getDen
+	// Rational
+	public Rational(int n, int d) {
+		firstNum = num =n;
+		firstDen = den = d;
+		reduce();
+	}
 
-//	getDecimal
-
-//	getRational 
-	
-//	getOriginal
-
-//	reduce
-
-	private int getGCF(int n1,int n2)
+	// getNum
+	public int getNum()
 	{
+		return num;
+	}
+	// getDen
+	public int getDen()
+	{
+		return den;
+	}
+
+	// getDecimal
+	public double getDecimal() {
+		return (double)num / den;
+
+	}
+	// getRational
+	public String getRational()
+	{
+		return num + "/" + den;
+	}
+
+	// getOriginal
+	public String getOriginal()
+	{
+		return firstNum +"/"+ firstDen;
+	}
+
+	// reduce
+	public void reduce() 
+	{
+		int gcf = getGCF(firstNum, firstDen);
+		num = firstNum/gcf;
+		int gcd = getGCF(firstNum, firstDen);
+		den = firstNum/gcf;
+		
+	}
+	
+	private int getGCF(int firstNum, int firstDen) {
 		int rem = 0;
 		int gcf = 0;
-		do
-		{
-			rem = n1 % n2;
+		do {
+			rem = firstNum % firstDen;
 			if (rem == 0)
-				gcf = n2;
-			else
-			{
-				n1 = n2;
-				n2 = rem;
+				gcf = firstDen;
+			else {
+				firstNum = firstDen;
+				firstDen = rem;
 			}
-		}
-		while (rem != 0);
+		} while (rem != 0);
 		return gcf;
-	} 
+	}
 }
-
-
-
-	
-
  
-
-
